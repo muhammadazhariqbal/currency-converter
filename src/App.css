@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-image: url('../src/bg-convertor.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: fixed;
+ 
 }
 
 .App-logo {
@@ -14,7 +19,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
+
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +41,44 @@
   to {
     transform: rotate(360deg);
   }
+}
+.mine-btn {
+
+  height: 3rem;
+  width: 15rem;
+  background-color: #504129;
+  border-radius:2px ;
+  margin:10px;
+  color: #fff;
+  border: none;
+  display: block;
+
+}
+.mine-btn:hover{
+  background-color: #504129;
+
+}
+h1{
+  color: #FFF;
+}
+.form-container {
+  height: auto;
+  width:auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius:5px;
+}
+.currency-container {
+  height: auto;
+  width:auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius:5px;
+  text-align: left;
+  margin-top: 10px;
+}
+Input:focus{
+  box-shadow: none !important;
+  border: 2px solid #504129 !important;
+  
 }
