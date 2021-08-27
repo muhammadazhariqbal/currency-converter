@@ -142,7 +142,7 @@ function App() {
               </Row>
               {convertedMoney ?
 
-                (console.log(`first cc ${firstCurrency} ,  sec ${secondCurrency} amoutn ${amount} con ${convertedMoney}`),
+               
                   <div>
                     <Modal isOpen={modal} toggle={toggle} >
                       <Button style={{ height: 'auto', width: 'auto', backgroundColor: '#504129', color: '#fff', marginLeft: 'auto', }} onClick={() => {
@@ -155,7 +155,7 @@ function App() {
                         <p>YOUR {amount}  {firstCurrency} IS EQUAL TO  {convertedMoney} {secondCurrency}</p>
                       </ModalBody>
                     </Modal>
-                  </div>)
+                  </div>
                 : null}
 
             </header>
