@@ -41,7 +41,7 @@ function App() {
             
               setConversionRate(res)
            
-              if (res[`${firstCurrency}_${secondCurrency}`] == undefined) {
+              if (res[`${firstCurrency}_${secondCurrency}`] === undefined) {
                 return alert('Please Enter Valid Currency ID')
               } else {
                 setConvertedMoney(res[`${firstCurrency}_${secondCurrency}`] * parseInt(amount))
