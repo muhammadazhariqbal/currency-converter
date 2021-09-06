@@ -118,8 +118,8 @@ function App() {
                       toggle()
                     }}>x</Button>
                     <ModalBody>
-                      <h4>Conversion Rate is {parseInt(conversionRate[`${firstCurrency}_${secondCurrency}`])} {secondCurrency}</h4>
-                      <p>YOUR {amount}  {firstCurrency} = {parseInt(convertedMoney)} {secondCurrency}</p>
+                      <h4>Conversion Rate is {parseInt(conversionRate[`${firstCurrency}_${secondCurrency}`]).toFixed(2)} {secondCurrency}</h4>
+                      <p>YOUR {amount}  {firstCurrency} = {parseInt(convertedMoney).toFixed(2)} {secondCurrency}</p>
                     </ModalBody>
                   </Modal>
                 </div>
