@@ -1,27 +1,12 @@
 .App {
   text-align: center;
-  background-image: url('../src/bg-convertor.png');
+  background-color: #fff;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: fixed;
- 
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-
-  
-  min-height: 100vh;
+   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,20 +18,10 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .mine-btn {
-
   height: 3rem;
   width: 15rem;
-  background-color: #504129;
+  background-color: #2f2e41;
   border-radius:2px ;
   margin:10px;
   color: #fff;
@@ -55,16 +30,17 @@
 
 }
 .mine-btn:hover{
-  background-color: #504129;
-
+  background-color: #2f2e41;
 }
-h1{
-  color: #FFF;
+h1,h4{
+  color: #2f2e41;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .form-container {
   height: auto;
   width:auto;
-  background-color: #fff;
+  background-color: #4756be;
   padding: 20px;
   border-radius:5px;
 }
@@ -77,8 +53,44 @@ h1{
   text-align: left;
   margin-top: 10px;
 }
+input {
+  margin-top: 1rem;
+}
+Input::placeholder {
+  font-size: small;
+  overflow-wrap: normal;
+}
 Input:focus{
   box-shadow: none !important;
-  border: 2px solid #504129 !important;
-  
+}
+.image {
+  margin-top: 2rem;
+  height: 400px;
+  width: 500px;
+}
+@media screen and (max-width: 480px) {
+  .image {
+    margin-top: 2rem;
+    height: 300px;
+    width: 400px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .image {
+    margin-top: 2rem;
+    height: 200px;
+    width: 300px;
+   }
+}
+@media screen and (max-width: 320px) {
+  .image {
+    margin-top: 2rem;
+    height: 180px;
+    width: 230px;
+  }
+}
+.modal-container {
+  background-color: #2f2e41 !important;
+  height: auto;
+  width: auto;
 }

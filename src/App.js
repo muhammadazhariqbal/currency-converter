@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Table, FormGroup, Modal, ModalBody, Input, } from 'reactstrap';
+import { Container, Row, Col, Button, Table, FormGroup, Modal, ModalBody, Input, Alert } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
+import icon from './icon.png'
 function App() {
   // states for storing data 
   const [allCurrencies, setAllCurrencies] = useState('')
@@ -13,7 +13,8 @@ function App() {
   const [conversionRate, setConversionRate] = useState('')
   const [convertedMoney, setConvertedMoney] = useState('')
   const [modal, setModal] = useState(false);
-
+  const [isLoader, setIsLoader] = useState(false)
+  const [showError, setShowError] = useState(false)
   // useEffect for fetching all currencies data
   useEffect(() => {
     fetch('https://free.currconv.com/api/v7/countries?apiKey=dfd82b1f79f106587170')
@@ -28,19 +29,20 @@ function App() {
   }, [])
   // toggling 
   const getAllCurrencies = () => { setIsShowAllCurrency(!isShowAllCurrency) }
-
   // converting amount
   const startConversion = () => {
+    setIsLoader(true)
     if (!amount || !firstCurrency || !secondCurrency) {
-      alert('PLEASE FILL OUT ALL FIELDS')
+      setShowError(true)
+      setIsLoader(false)
     } else {
+      setShowError(false)
       fetch(`https://free.currconv.com/api/v7/convert?q=${firstCurrency}_${secondCurrency}&compact=ultra&apiKey=dfd82b1f79f106587170`)
         .then(response => {
           response.json()
             .then(res => {
-            
+              setIsLoader(false)
               setConversionRate(res)
-           
               if (res[`${firstCurrency}_${secondCurrency}`] === undefined) {
                 return alert('Please Enter Valid Currency ID')
               } else {
@@ -69,11 +71,11 @@ function App() {
     <div className="App">
       <Container>
         <Row>
-          <Col md="12">
+          <Col md="6"> <img src={icon} className="image" /> </Col>
+          <Col md="6">
             <header className="App-header">
+              {showError ? <Alert color="danger"> Please Fill out all fields</Alert> : null}
               <h1>CURRENCY CONVERTOR</h1>
-
-
               <div className="form-container">
                 <Row>
                   <Col md="4">
@@ -86,7 +88,7 @@ function App() {
                   <Col md="4">
                     <FormGroup>
                       <Col sm={10}>
-                        <Input type="text" name="text"  placeholder="Currency I have" value={firstCurrency} onChange={(e) => { setFirstCurrency(e.target.value) }}>
+                        <Input type="text" name="text" placeholder="Currency I have" value={firstCurrency} onChange={(e) => { setFirstCurrency(e.target.value) }}>
                         </Input>
                       </Col>
                     </FormGroup>
@@ -94,7 +96,7 @@ function App() {
                   <Col md="4">
                     <FormGroup>
                       <Col sm={10}>
-                        <Input type="text" name="select" placeholder="Currency I want"  value={secondCurrency} onChange={(e) => { setSecondCurrency(e.target.value) }}>
+                        <Input type="text" name="select" placeholder="Currency I want" value={secondCurrency} onChange={(e) => { setSecondCurrency(e.target.value) }}>
 
                         </Input>
                       </Col>
@@ -102,67 +104,58 @@ function App() {
                   </Col>
                 </Row>
               </div>
+              <Button className="mine-btn" onClick={() => {
+                startConversion()
+                toggle()
+              }}>{isLoader ? 'Converting...' : 'CONVERT'}</Button>
+              <Button className="mine-btn" onClick={() => { getAllCurrencies() }}>{isShowAllCurrency ? "HIDE ALL CURRENCIES" : "SHOW ALL CURRENCIES"}</Button>
 
-              <Row>
-                <Col md="12">
-
-                  <Button className="mine-btn" onClick={() => {
-                    startConversion()
-                    toggle()
-                 
-                  }}>CONVERT</Button>
-                  <Button className="mine-btn" onClick={() => { getAllCurrencies() }}>{isShowAllCurrency ? "HIDE ALL CURRENCIES" : "SHOW ALL CURRENCIES"}</Button>
-                  {isShowAllCurrency ?
-                    <div className="currency-container" >
-
-                      <Table responsive >
-                        <thead>
-                          <tr>
-                            <th style={{ color: 'brown' }}>Country </th>
-                            <th style={{ color: 'brown' }}>Currency ID</th>
-                          </tr>
-
-                        </thead>
-                        {allCurrencies.map(data => {
-                          return (
-                            <>
-                              <tbody>
-                                <tr>
-                                  <th>{data[1].name}</th>
-                                  <th>{data[1].currencyId}</th>
-                                </tr>
-                              </tbody>
-                            </>
-                          )
-                        })}
-                      </Table>
-                    </div> : null}
-
-                </Col>
-              </Row>
               {convertedMoney ?
-
-               
-                  <div>
-                    <Modal isOpen={modal} toggle={toggle} >
-                      <Button style={{ height: 'auto', width: 'auto', backgroundColor: '#504129', color: '#fff', marginLeft: 'auto', }} onClick={() => {
-                        resetData()
-                        toggle()
-
-                      }}>x</Button>
-                      <ModalBody>
-                        <h4>Conversion Rate is {conversionRate[`${firstCurrency}_${secondCurrency}`]}</h4>
-                        <p>YOUR {amount}  {firstCurrency} IS EQUAL TO  {convertedMoney} {secondCurrency}</p>
-                      </ModalBody>
-                    </Modal>
-                  </div>
+                <div className="modal-container">
+                  <Modal isOpen={modal} toggle={toggle} >
+                    <Button style={{ height: 'auto', width: 'auto', backgroundColor: '#2f2e41', color: '#fff', marginLeft: 'auto', }} onClick={() => {
+                      resetData()
+                      toggle()
+                    }}>x</Button>
+                    <ModalBody>
+                      <h4>Conversion Rate is {parseInt(conversionRate[`${firstCurrency}_${secondCurrency}`])} {secondCurrency}</h4>
+                      <p>YOUR {amount}  {firstCurrency} = {parseInt(convertedMoney)} {secondCurrency}</p>
+                    </ModalBody>
+                  </Modal>
+                </div>
                 : null}
-
             </header>
           </Col>
         </Row>
-      </Container>
+        <Row>
+          <Col>
+            {isShowAllCurrency ?
+              <div className="currency-container" >
+                <Table responsive >
+                  <thead>
+                    <tr>
+                      <th style={{ color: '#4756be0', fontWeight: 'bold' }}>COUNTRY</th>
+                      <th style={{ color: '#4756be', fontWeight: 'bold' }}>CURRENCY ID</th>
+                    </tr>
+                  </thead>
+                  {allCurrencies.map(data => {
+                    return (
+                      <>
+                        <tbody>
+                          <tr>
+                            <th>{data[1].name}</th>
+                            <th>{data[1].currencyId}</th>
+                          </tr>
+                        </tbody>
+                      </>
+                    )
+                  })}
+                </Table>
+              </div> : null}
+          </Col>
 
+        </Row>
+      </Container>
     </div>
   );
 }
