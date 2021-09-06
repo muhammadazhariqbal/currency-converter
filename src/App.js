@@ -75,7 +75,7 @@ function App() {
           <Col md="6">
             <header className="App-header">
               {showError ? <Alert color="danger"> Please Fill out all fields</Alert> : null}
-              <h1>CURRENCY CONVERTOR</h1>
+              <h1>CURRENCY CONVERTER</h1>
               <div className="form-container">
                 <Row>
                   <Col md="4">
