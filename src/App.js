@@ -44,7 +44,7 @@ function App() {
               setIsLoader(false)
               setConversionRate(res)
               if (res[`${firstCurrency}_${secondCurrency}`] === undefined) {
-                return alert('Please Enter Valid Currency ID')
+                return alert('Invalid Currency ID')
               } else {
                 setConvertedMoney(res[`${firstCurrency}_${secondCurrency}`] * parseInt(amount))
               }
@@ -74,7 +74,7 @@ function App() {
           <Col md="6"> <img src={icon} className="image" alt="icon"/> </Col>
           <Col md="6">
             <header className="App-header">
-              {showError ? <Alert color="danger"> Please Fill out all fields</Alert> : null}
+              {showError ? <Alert color="danger"> Please fill out all required fields </Alert> : null}
               <h1>CURRENCY CONVERTER</h1>
               <div className="form-container">
                 <Row>
